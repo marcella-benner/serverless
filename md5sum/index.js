@@ -13,6 +13,15 @@ exports.handler = (event, handler, callback) => {
     // added -n because echo includes a newline, causing md5sum to be wrong
     var cmd = 'echo -n "' + input + '" | md5sum | sed "s/ -//"';
 
+    if (input === '') {
+            callback(null, {
+                statusCode: 400,
+                body: "Please provide some input"
+            });
+        }
+    
+    
+
     // execute the full command
     exec(cmd, (error, stdout, stderr) => {
 
